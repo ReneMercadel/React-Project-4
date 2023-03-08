@@ -12,9 +12,20 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    // This will run after every render cycle
+    const identifier = setTimeout(() => {
+      console.log('Checking form validity!');
+      // Running this code inside a setTimeout will prevent it from running on every keystroke. It will only run after the user has stopped typing for 500ms.
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+
+    // Clean up function. This will run before the next useEffect runs in order to prevent multiple timers from running at the same time.
+    return () => {
+      console.log('CLEANUP');
+      clearTimeout(identifier);
+    };
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
