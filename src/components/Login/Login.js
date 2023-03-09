@@ -3,6 +3,7 @@ import React, { useState, useEffect, useReducer, useContext } from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
 import AuthContext from '../../store/auth-context';
 
 const emailReducer = (state, action) => {
@@ -106,7 +107,7 @@ const Login = () => {
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-        <div
+        {/* <div
           className={`${classes.control} ${
             emailState.isValid === false ? classes.invalid : ''
           }`}
@@ -119,7 +120,16 @@ const Login = () => {
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
-        </div>
+        </div> */}
+        <Input
+          classes={classes.control}
+          label='email'
+          id='email'
+          value={emailState.value}
+          changeHandler={emailChangeHandler}
+          validateHandler={validateEmailHandler}
+          isValid={emailState.isValid}
+        />
         <div
           className={`${classes.control} ${
             passwordState.isValid === false ? classes.invalid : ''
